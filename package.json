@@ -1,6 +1,6 @@
 {
     "name": "protoplus",
-    "version": "1.4.2",
+    "version": "1.5.0",
     "description": "A multi-environment module that expands JavaScript's prototype methods, global helper functions and others.",
     "main": "protoplus.mjs",
     "type": "module",
@@ -22,6 +22,6 @@
     "license": "GNU AGPL v3",
     "dependencies": {
         "@prettier/sync": "^0.6.1",
-        "prettier": "^3.9.4"
+        "prettier": "^3.9.6"
     }
 }
