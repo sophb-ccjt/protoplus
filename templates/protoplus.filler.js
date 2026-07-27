@@ -24,7 +24,7 @@ const protoplus = {
 		},
 
 		RegExp: {
-			escape: (str) => String(str).replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+			escape: (str) => String(str).replace(/([.*+?^${}()|[\]\\])/g, ($0) => '\\' + $0),
 		},
 
 		Array: {
