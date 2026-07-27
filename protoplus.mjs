@@ -41,8 +41,8 @@
 			RegExp: {
 				escape: str =>
 					String(str).replace(
-						/[.*+?^${}()|[\]\\]/g,
-						'\\// protoplus goes here'
+						/([.*+?^${}()|[\]\\])/g,
+						$0 => '\\' + $0
 					),
 			},
 
