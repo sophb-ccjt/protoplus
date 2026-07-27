@@ -62,6 +62,7 @@ const protoplus = {
 				radToDeg: (rad) => (rad * 180) / Math.PI,
 				degToRad: (deg) => (deg * Math.PI) / 180,
 			},
+			root: (radicand, index = 2) => radicand ** 1/index,
 		},
 
 		Number: {
@@ -731,5 +732,5 @@ const protoplus = {
 		const endTime = now();
 		console.log(`contracted methods in ${endTime - startTime}ms`);
 	},
-	version: "1.4.2",
+	version: "1.5.0",
 };
