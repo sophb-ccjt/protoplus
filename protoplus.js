@@ -26,11 +26,11 @@
 				iterate: function (obj, callback) {
 					if (!JSON.isJSON(obj))
 						throw new TypeError(
-							'Argument "obj" has to be of type "JSON" ("object").'
+							'Argument "obj" must be a plain object.'
 						);
 					if (typeof callback !== 'function')
 						throw new TypeError(
-							'Argument "callback" has to be of type "function".'
+							'Argument "callback" must be of type "function".'
 						);
 					for (let i = 0; i < Object.keys(obj).length; i++) {
 						callback(Object.keys(obj)[i], Object.values(obj)[i], i);
@@ -268,7 +268,7 @@
 					const types = Boolean.formatTypes;
 
 					const pair = types[type] ?? ['false', 'true'];
-					return pair[+bool]; // transform bool to num by adding with 0
+					return pair[+bool]; // transform bool to num by adding to 0
 				},
 			},
 			String: {
@@ -297,7 +297,7 @@
 					}
 					let finalStr = '';
 					let skipping = true;
-					for (const char of this) {
+					for (const char of String(this)) {
 						if (strings.includes(char) && skipping) continue;
 						finalStr += char;
 						skipping = false;
@@ -337,18 +337,16 @@
 					return this.split('').reverse().join('');
 				},
 				erase: function (...strings) {
-					let finalStr = this.valueOf();
-					strings.some(str => {
-						finalStr = finalStr.replace(str, '');
-					});
-					return finalStr;
+					return strings.reduce(
+						(finalStr, str) => finalStr.replace(str, ''),
+						this.valueOf()
+					);
 				},
 				eraseAll: function (...strings) {
-					let finalStr = this.valueOf();
-					strings.some(str => {
-						finalStr = finalStr.replaceAll(str, '');
-					});
-					return finalStr;
+					return strings.reduce(
+						(finalStr, str) => finalStr.replaceAll(str, ''),
+						this.valueOf()
+					);
 				},
 				chars: function () {
 					return this.split('');
@@ -356,8 +354,15 @@
 				words: function () {
 					return this.split(' ');
 				},
+				getLineEnding: function () {
+					if (/\r\n/.test(this.valueOf())) return '\r\n';
+					else if (/[^\r]\n/.test(this.valueOf)) return '\n';
+					else return undefined; // unknown
+				},
 				lines: function () {
-					return this.split('\n');
+					const lineEnding = String(this).getLineEnding();
+					if (lineEnding) return this.split(lineEnding);
+					else return this; // no lines
 				},
 				compactPunct: function () {
 					const puncts = {
@@ -371,21 +376,24 @@
 						'⁇': '⁇',
 						'!?': '⁉',
 						'?!': '⁉',
+						// "fi": "ﬁ", // not punctuation but maybe someday
 					};
-					let finalStr = this.valueOf();
-					finalStr = finalStr.replace(
-						new RegExp(
-							`(${Object.keys(puncts).map(RegExp.escape).join('|')})`,
-							'g'
-						),
-						punct => puncts[punct]
+					return Object.keys(puncts).reduce(
+						(finalStr, punct) =>
+							finalStr.replace(
+								new RegExp(
+									`(${punct.map(RegExp.escape).join('|')})`,
+									'g'
+								),
+								punct => puncts[punct]
+							),
+						this.valueOf()
 					);
-					return finalStr;
 				},
 				forEach: function (callback, separator = '') {
 					const separated = this.split(separator);
 					for (let i = 0; i < separated.length; i++) {
-						callback(separated[i], i, this);
+						callback(separated[i], i, this.valueOf());
 					}
 					return;
 				},
@@ -406,9 +414,9 @@
 					return this.length;
 				},
 				endsWithAmount: function (char) {
-					let iterations = 0;
-					for (let i = this.length - 1; i >= 0; i--) {
-						if (this[i] !== char) return iterations;
+					const reversed = this.reverse();
+					for (let i = 0; i < this.length - 1; i++) {
+						if (reversed[i] !== char) return i;
 
 						iterations++;
 					}
@@ -604,13 +612,13 @@
 
 					if (timeOnly && dateOnly)
 						throw new Error(
-							'You cannot only get the time while also only getting the date.'
+							'You cannot only get the time while also only getting the date. Pick one!'
 						);
 
 					if (timeOnly) return time;
 					if (dateOnly) return date;
 
-					if (timeFirst) return week + time + ' ' + date;
+					if (timeFirst) return time + ' ' + week + date;
 					else return week + date + ' ' + time;
 				}
 			},
@@ -762,7 +770,7 @@
 			const endTime = now();
 			console.log(`contracted methods in ${endTime - startTime}ms`);
 		},
-		version: '1.5.0',
+		version: '1.6.0',
 	};
 
 	if (preexpand)
