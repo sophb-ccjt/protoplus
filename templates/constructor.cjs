@@ -18,7 +18,7 @@ const templateFiller = fs.readFileSync(
 );
 
 // construct filled code
-const moduleFilled = webTemplate.replace(
+const moduleFilled = moduleTemplate.replace(
 	'// protoplus goes here',
 	templateFiller
 );
