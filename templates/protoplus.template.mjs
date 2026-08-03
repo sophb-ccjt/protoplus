@@ -6,6 +6,9 @@ const now =
 const snapshots = {};
 // protoplus goes here
 
-globalThis.protoplus = protoplus;
+export default protoplus;
+export {
+	protoplus
+}
 
 console.log(`proto+ v${protoplus.version} loaded!`);
