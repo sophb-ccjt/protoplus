@@ -748,6 +748,7 @@ const protoplus = {
 	version: '1.6.0',
 };
 
-globalThis.protoplus = protoplus;
+export default protoplus;
+export { protoplus };
 
 console.log(`proto+ v${protoplus.version} loaded!`);
