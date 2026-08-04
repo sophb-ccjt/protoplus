@@ -41,17 +41,10 @@ or alternatively, use `yarn`:
 yarn add sophb-chan/protoplus
 ```
 
-then add this code to the top of your script file:
+then add this line of code to the top of your script file:
 ```js
 import { protoplus } from 'protoplus';
 ```
-
-## In Deno
-Add this code to the top of your script file:
-```js
-import { protoplus } from 'https://rawcdn.githack.com/sophb-chan/protoplus/refs/heads/main/protoplus.mjs';
-```
-
 
 # How to Import (CommonJS/WebJS module)
 ## In browsers via HTML or JS:
@@ -86,15 +79,9 @@ or alternatively, use `yarn`:
 yarn add sophb-chan/protoplus
 ```
 
-then add this code to the top of your script file:
+then add this line of code to the top of your script file:
 ```js
-import { protoplus } from 'protoplus';
-```
-
-## In Deno
-Add this code to the top of your script file:
-```js
-import { protoplus } from 'https://rawcdn.githack.com/sophb-chan/protoplus/refs/heads/main/protoplus.js';
+const { protoplus } = require('protoplus');
 ```
 
 
