@@ -1,0 +1,4 @@
+/templates
+/.github
+.prettierrc.json
+.gitignore
