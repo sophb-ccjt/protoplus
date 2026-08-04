@@ -41,9 +41,10 @@ or alternatively, use `yarn`:
 yarn add sophb-chan/protoplus
 ```
 
-then add this line of code to the top of your script file:
+then add either one of these lines of code to the top of your script file:
 ```js
 import { protoplus } from 'protoplus';
+import protoplus from 'protoplus';
 ```
 
 # How to Import (CommonJS/WebJS module)
