@@ -64,7 +64,7 @@ const protoplus = {
 				degToRad: (deg) => (deg * Math.PI) / 180,
 			},
 			root: (radicand, index = 2) => radicand ** 1 / index,
-			randomMinMax: (min, max) => Math.random() * (max - min) + min;
+			randomMinMax: (min, max) => Math.random() * (max - min) + min,
 		},
 
 		Number: {
