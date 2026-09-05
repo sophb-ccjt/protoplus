@@ -156,6 +156,16 @@ const protoplus = {
 				)
 			),
 		},
+
+		Boolean: {
+			formatTypes: {
+				affirm: ['no', 'yes'],
+				binary: ['0', '1'],
+				onoff: ['off', 'on'],
+				enable: ['disabled', 'enabled'],
+				literal: ['false', 'true'],
+			},
+		},
 	},
 
 	proto: {
@@ -240,13 +250,6 @@ const protoplus = {
 		},
 
 		Boolean: {
-			formatTypes: {
-				affirm: ['no', 'yes'],
-				binary: ['0', '1'],
-				onoff: ['off', 'on'],
-				enable: ['disabled', 'enabled'],
-				literal: ['false', 'true'],
-			},
 			format: function ({ type = 'literal' }) {
 				const bool = this.valueOf();
 				const types = Boolean.formatTypes;
@@ -417,6 +420,20 @@ const protoplus = {
 			cleanup: function () {
 				return this.valueOf().normalize('NFKD').replace(/\p{M}/gu, '');
 			},
+			escapeHTML: function () {
+				const entities = {
+					'&': '&amp;',
+					'<': '&lt;',
+					'>': '&gt;',
+					'"': '&quot;',
+					"'": '&apos;',
+				};
+				let escapedText = this.valueOf();
+				for (const [raw, entity] of Object.entries(entities)) {
+					escapedText = escapedText.replaceAll(raw, entity);
+				}
+				return escapedText;
+			},
 		},
 
 		Number: {
@@ -432,13 +449,13 @@ const protoplus = {
 				return parseFloat(this.toFixed(digits));
 			},
 			floor: function () {
-				return Math.floor(this);
+				return Math.floor(this.valueOf());
 			},
 			ceil: function () {
-				return Math.ceil(this);
+				return Math.ceil(this.valueOf());
 			},
 			round: function () {
-				return Math.round(this);
+				return Math.round(this.valueOf());
 			},
 			clamp: function (min, max) {
 				return Math.max(min, Math.min(max, this));
@@ -746,7 +763,7 @@ const protoplus = {
 		const endTime = now();
 		console.log(`contracted methods in ${endTime - startTime}ms`);
 	},
-	version: '1.7.0',
+	version: '1.8.0',
 };
 
 export default protoplus;
