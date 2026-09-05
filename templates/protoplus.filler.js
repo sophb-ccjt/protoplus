@@ -414,7 +414,7 @@ const protoplus = {
 			cleanup: function () {
 				return this.valueOf().normalize("NFKD").replace(/\p{M}/gu, "");
 			},
-			escapeHTML: function() {
+			escapeHTML: function () {
 				const entities = {
 					'&': '&amp;',
 					'<': '&lt;',
@@ -427,6 +427,7 @@ const protoplus = {
 					escapedText = escapedText.replaceAll(raw, entity);
 				}
 				return escapedText;
+			},
 		},
 
 		Number: {
@@ -571,11 +572,10 @@ const protoplus = {
 				timeOnly = false,
 			} = {}) {
 				const week = showWeek
-					? `${
-							trimWeek
-								? this.times.weekName().substring(0, 3)
-								: this.times.weekName()
-						} `
+					? `${trimWeek
+						? this.times.weekName().substring(0, 3)
+						: this.times.weekName()
+					} `
 					: "";
 				const time =
 					[

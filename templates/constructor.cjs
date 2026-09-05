@@ -47,3 +47,12 @@ fs.writeFileSync(
 	path.join(__dirname, '../package.json'),
 	JSON.stringify(packageJson, null, 4)
 );
+// update version number in package-lock.json
+const packageJson = JSON.parse(
+	fs.readFileSync(path.join(__dirname, '../package-lock.json'), 'utf8')
+);
+packageJson.version = templateFiller.match(/(['"]?)version\1: "([^"]+)"/)[2];
+fs.writeFileSync(
+	path.join(__dirname, '../package-lock.json'),
+	JSON.stringify(packageJson, null, 4)
+);
