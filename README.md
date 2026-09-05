@@ -30,6 +30,8 @@ Proto+ (aka protoplus) is a multi-enviroment module that expands JavaScript's pr
 ```
 
 ## In Node.js, Bun, or front-end frameworks like React/Next.js:
+(THIS METHOD IS LIKELY TO NOT WORK! I'm working on a fix for it ASAP, thanks for the patience!)
+
 Install proto+ (if you haven't already):
 
 ```shell
@@ -69,6 +71,8 @@ import protoplus from 'protoplus';
 ```
 
 ## In Node.js, Bun, or front-end frameworks like React/Next.js:
+(THIS METHOD IS LIKELY TO NOT WORK! I'm working on a fix for it ASAP, thanks for the patience!)
+
 Install proto+ (if you haven't already):
 
 ```shell
