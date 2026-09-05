@@ -52,6 +52,7 @@ const packageLockJson = JSON.parse(
 	fs.readFileSync(path.join(__dirname, '../package-lock.json'), 'utf8')
 );
 packageLockJson.version = templateFiller.match(/(['"]?)version\1: "([^"]+)"/)[2];
+packageLockJson.packages[''].version = templateFiller.match(/(['"]?)version\1: "([^"]+)"/)[2];
 fs.writeFileSync(
 	path.join(__dirname, '../package-lock.json'),
 	JSON.stringify(packageLockJson, null, 4)
